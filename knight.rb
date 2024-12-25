@@ -15,7 +15,8 @@ class Knight
   end
 
   def getSum(p1,p2)
-    sum = p1.each_with_index{|num, ind| p num + p2[ind]}
+    sum = []
+    p1.each_index{|ind| sum.push(p1[ind] + p2[ind])}
     return sum
   end
 
@@ -24,6 +25,7 @@ class Knight
     if start == last
       return [path, count]
     end
-    @moves.any?{|pair| validPosition(getSum(start,pair)) ? move(getSum(start,pair),last,count +=1, path.push(start)) : next}
+    #@moves.each{|pair| validPosition(getSum(start,pair)) == 1 ? (p (getSum(pair, start))) : next}
+    @moves.each{|pair| move(getSum(start,pair),last,count +=1, path.push(start)) if validPosition(getSum(start,pair)) }
   end
 end
