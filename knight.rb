@@ -5,13 +5,18 @@ class Knight
   end
   def validPosition(val)
     if val.any?{|elem| elem.negative? || elem > 8}
-      return 0
+      return false
     end
-    return 1
+    return true
   end
 
   def possibleMoves(start)
     
+  end
+
+  def getSum(p1,p2)
+    sum = p1.each_with_index{|num, ind| p num + p2[ind]}
+    return sum
   end
 
   def move(start, last, count = 0, path = [start])
@@ -19,6 +24,6 @@ class Knight
     if start == last
       return [path, count]
     end
-    @moves.any?{|pair| move(start[0][1] + pair[0][1],last,count +=1, path.push(start)) if validPosition(start[0][1] + pair[0][1])}
+    @moves.any?{|pair| validPosition(getSum(start,pair)) ? move(getSum(start,pair),last,count +=1, path.push(start)) : next}
   end
 end
